@@ -40,6 +40,9 @@ public class ChatManager {
     }
 
     public static void disableTeamChat(Player player) {
+        if (TeamManager.getTeamManager().getPlayerTeam(player) == null)
+            return;
+
         teamChatEnabled.putIfAbsent(player, false);
         teamChatEnabled.put(player, false);
 
@@ -47,6 +50,9 @@ public class ChatManager {
     }
 
     public static void enableTeamChat(Player player) {
+        if (TeamManager.getTeamManager().getPlayerTeam(player) == null)
+            return;
+
         teamChatEnabled.putIfAbsent(player, true);
         teamChatEnabled.put(player, true);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamEnableMessage().replace("%prefix%", ConfigManager.getTeamPrefix())));
@@ -68,12 +74,16 @@ public class ChatManager {
     }
 
     public static void disableStaffChat(Player player) {
+        if (!player.isOp() && !player.hasPermission("privatechats.chat.staffchat"))
+            return;
         staffChatEnabled.putIfAbsent(player, false);
         staffChatEnabled.put(player, false);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getStaffDisableMessage().replace("%prefix%", ConfigManager.getStaffPrefix())));
     }
 
     public static void enableStaffChat(Player player) {
+        if (!player.isOp() && !player.hasPermission("privatechats.chat.staffchat"))
+            return;
         staffChatEnabled.putIfAbsent(player, true);
         staffChatEnabled.put(player, true);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getStaffEnableMessage().replace("%prefix%", ConfigManager.getStaffPrefix())));
@@ -81,9 +91,11 @@ public class ChatManager {
 
     public static void sendMessageToTeam(Player player, String message) {
         Team senderTeam = TeamManager.getTeamManager().getPlayerTeam(player);
+        if (senderTeam == null)
+            return;
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
-            if (TeamManager.getTeamManager().getPlayerTeam(player) != null) {
-                Team team = TeamManager.getTeamManager().getPlayerTeam(player);
+            if (TeamManager.getTeamManager().getPlayerTeam(onlinePlayer) != null) {
+                Team team = TeamManager.getTeamManager().getPlayerTeam(onlinePlayer);
                 if (team.getTeamUuid().equals(senderTeam.getTeamUuid())) {
                     if (ChatManager.hasTeamChatToggled(onlinePlayer)) {
                         onlinePlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamMessageSent().replace("%prefix%", ConfigManager.getTeamPrefix())
@@ -115,11 +127,15 @@ public class ChatManager {
     }
 
     public static void untoggleTeamChat(Player player) {
+        if (TeamManager.getTeamManager().getPlayerTeam(player) == null)
+            return;
         teamChatToggled.put(player, false);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamUntoggleMessage().replace("%prefix%", ConfigManager.getTeamPrefix())));
     }
 
     public static void toggleTeamChat(Player player) {
+        if (TeamManager.getTeamManager().getPlayerTeam(player) == null)
+            return;
         teamChatToggled.put(player, true);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamToggleMessage().replace("%prefix%", ConfigManager.getTeamPrefix())));
     }
@@ -135,11 +151,15 @@ public class ChatManager {
         staffChatToggled.put(player, b);
     }
     public static void untoggleStaffChat(Player player) {
+        if (!player.isOp() && !player.hasPermission("privatechats.chat.staffchat"))
+            return;
         staffChatToggled.put(player, false);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getStaffUntoggleMessage().replace("%prefix%", ConfigManager.getTeamPrefix())));
     }
 
     public static void toggleStaffChat(Player player) {
+        if (!player.isOp() && !player.hasPermission("privatechats.chat.staffchat"))
+            return;
         staffChatToggled.put(player, true);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamUntoggleMessage().replace("%prefix%", ConfigManager.getTeamPrefix())));
     }

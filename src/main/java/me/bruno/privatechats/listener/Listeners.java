@@ -4,13 +4,14 @@ import me.bruno.privatechats.ChatManager;
 import me.bruno.privatechats.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Listeners implements Listener {
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onChat(AsyncPlayerChatEvent e) {
 
         if (ChatManager.getTeamChat().containsKey(e.getPlayer())) {
@@ -45,7 +46,7 @@ public class Listeners implements Listener {
             }
         }
     }
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onJoin(PlayerJoinEvent e) {
         ChatManager.getStaffChatToggled().putIfAbsent(e.getPlayer(), true);
         ChatManager.getTeamChatToggled().putIfAbsent(e.getPlayer(), true);

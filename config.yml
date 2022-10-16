@@ -1,0 +1,77 @@
+
+# Prefix for all staff related messages
+
+staff_prefix: "&d&lSTAFF&r"
+
+# Prefix for all team related messages
+
+team_prefix: "&6&lTEAM&r"
+
+# Prefix used to instantly send messages to staff
+
+staff_message_prefix: "**"
+
+# Message used when staff chat is disabled
+#
+# %prefix%: The staff prefix (staff_prefix on config.yml)
+
+staff_disable: "[%prefix%] &cStaff Chat has been &lDisabled"
+
+# Message used when staff chat is enabled
+#
+# %prefix%: The staff prefix (staff_prefix on config.yml)
+
+staff_enable: "[%prefix%] &aStaff Chat has been &lEnabled"
+
+# Message used when vision for staff chat is untoggled
+#
+# %prefix%: The staff prefix (staff_prefix on config.yml)
+
+staff_untoggle: "[%prefix%] &cVision for Staff Chat has been &lUntoggled"
+
+# Message used when vision for staff chat is toggled
+#
+# %prefix%: The staff prefix (staff_prefix on config.yml)
+
+staff_toggle: "[%prefix%] &aVision for Staff Chat has been &lToggled"
+
+# Message used when team chat is disabled
+#
+# %prefix%: The team prefix (team_prefix on config.yml)
+
+team_disable: "[%prefix%] &cTeam Chat has been &lDisabled"
+
+# Message used when team chat is enabled
+#
+# %prefix%: The team prefix (team_prefix on config.yml)
+
+team_enable: "[%prefix%] &aTeam Chat has been &lEnabled"
+
+# Message used when vision for team chat is untoggled
+#
+# %prefix%: The team prefix (team_prefix on config.yml)
+
+team_untoggle: "[%prefix%] &cVision for Team Chat has been &lUntoggled"
+
+# Message used when vision for team chat is toggled
+#
+# %prefix%: The team prefix (team_prefix on config.yml)
+
+team_toggle: "[%prefix%] &aVision for Team Chat has been &lToggled"
+
+# Format for staff sent messages
+#
+# %prefix%: The staff prefix (staff_prefix on config.yml)
+# %player%: The player that send the message
+# %message%: The message
+
+staff_message: "%prefix%: &6%player%&d -> &r%message%"
+
+# Format for team sent messages
+#
+# %prefix%: The team prefix (team_prefix on config.yml)
+# %teamcolor%: The player's team color (Team.getTeamColor() on NovaCoreGameEngine)
+# %player%: The player that send the message
+# %message%: The message
+
+team_message: "%prefix%: %teamcolor%%player%&6 -> &r%message%"

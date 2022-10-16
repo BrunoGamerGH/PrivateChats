@@ -1,0 +1,5 @@
+name: PrivateChats
+version: '${project.version}'
+main: me.bruno.privatechats.PrivateChats
+api-version: 1.13
+depend: [NovaCore, NovaCoreGameEngine]

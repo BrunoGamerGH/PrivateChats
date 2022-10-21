@@ -9,7 +9,11 @@ team_prefix: "&6&lTEAM&r"
 
 # Prefix used to instantly send messages to staff
 
-staff_message_prefix: "**"
+staff_message_prefix: "s*"
+
+# Prefix used to instantly send messages to your team
+
+team_message_prefix: "t*"
 
 # Message used when staff chat is disabled
 #

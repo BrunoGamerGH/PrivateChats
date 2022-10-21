@@ -161,7 +161,7 @@ public class ChatManager {
         if (!player.isOp() && !player.hasPermission("privatechats.chat.staffchat"))
             return;
         staffChatToggled.put(player, true);
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamUntoggleMessage().replace("%prefix%", ConfigManager.getTeamPrefix())));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getStaffToggleMessage().replace("%prefix%", ConfigManager.getTeamPrefix())));
     }
 
     public static HashMap<Player, Boolean> getStaffChatToggled() {

@@ -7,6 +7,7 @@ public class ConfigManager {
     private static String staffPrefix;
     private static String teamPrefix;
 
+    private static String teamMessagePrefix;
     private static String staffMessagePrefix;
 
     private static String staffEnableMessage;
@@ -24,7 +25,8 @@ public class ConfigManager {
 
     private static final String DEFAULT_STAFF_PREFIX = ChatColor.translateAlternateColorCodes('&', "&d&lSTAFF&r");
     private static final String DEFAULT_TEAM_PREFIX = ChatColor.translateAlternateColorCodes('&', "&6&lTEAM&r");
-    private static final String DEFAULT_STAFF_MESSAGE_PREFIX = "**";
+    private static final String DEFAULT_STAFF_MESSAGE_PREFIX = "s*";
+    private static final String DEFAULT_TEAM_MESSAGE_PREFIX = "t*";
 
     private static final String DEFAULT_STAFF_ENABLE_MESSAGE = "[%prefix%] &aStaff Chat has been &lEnabled";
     private static final String DEFAULT_STAFF_DISABLE_MESSAGE = "[%prefix%] &cStaff Chat has been &lDisabled";
@@ -70,7 +72,15 @@ public class ConfigManager {
         return staffMessagePrefix;
     }
 
+    public static void setTeamMessagePrefix(String teamMessagePrefix) {
+        ConfigManager.teamMessagePrefix = teamMessagePrefix;
+    }
 
+    public static String getTeamMessagePrefix() {
+        if (teamMessagePrefix == null || teamMessagePrefix.equals(""))
+            return DEFAULT_TEAM_MESSAGE_PREFIX;
+        return teamMessagePrefix;
+    }
 
     public static void setStaffEnableMessage(String s) {
         staffEnableMessage = s;

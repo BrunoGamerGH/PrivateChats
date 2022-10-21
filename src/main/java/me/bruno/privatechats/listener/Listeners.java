@@ -2,6 +2,7 @@ package me.bruno.privatechats.listener;
 
 import me.bruno.privatechats.ChatManager;
 import me.bruno.privatechats.ConfigManager;
+import net.zeeraa.novacore.spigot.teams.TeamManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -43,6 +44,18 @@ public class Listeners implements Listener {
 
                 ChatManager.sendMessageToStaff(e.getPlayer(), e.getMessage().substring(ConfigManager.getStaffMessagePrefix().length()));
                 e.setCancelled(true);
+                return;
+            }
+        }
+        if (e.getMessage().startsWith(ConfigManager.getTeamMessagePrefix())) {
+            if (TeamManager.getTeamManager().getPlayerTeam(e.getPlayer()) != null) {
+                if (!ChatManager.hasTeamChatToggled(e.getPlayer())) {
+                    ChatManager.toggleTeamChat(e.getPlayer());
+                }
+
+                ChatManager.sendMessageToTeam(e.getPlayer(), e.getMessage().substring(ConfigManager.getTeamMessagePrefix().length()));
+                e.setCancelled(true);
+                return;
             }
         }
     }

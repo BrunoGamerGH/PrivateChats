@@ -7,6 +7,10 @@ staff_prefix: "&d&lSTAFF&r"
 
 team_prefix: "&6&lTEAM&r"
 
+# Prefix for all team spy related messages
+
+team_spy_prefix: "&e&lTEAM SPY&r"
+
 # Prefix used to instantly send messages to staff
 
 staff_message_prefix: "s*"
@@ -79,3 +83,25 @@ staff_message: "%prefix%: &6%player%&d -> &r%message%"
 # %message%: The message
 
 team_message: "%prefix%: %teamcolor%%player%&6 -> &r%message%"
+
+# Format for team spy messages
+#
+# %prefix%: The team spy prefix (team_spy_prefix on config.yml)
+# %teamcolor%: The player's team color (Team.getTeamColor() on NovaCore)
+# %teamname%: The player's team name (Team.getDisplayName() on NovaCore)
+# %player%: The player that send the message
+# %message%: The message
+
+team_spy_message: "[%prefix%]: %teamcolor%&l%teamname%&r: %teamcolor%%player%&6 -> &r%message%"
+
+# Enable team spy
+#
+# %prefix%: The team spy prefix (team_spy_prefix on config.yml)
+
+team_spy_enabled: "[%prefix%]: &aTeam Spy enabled."
+
+# Disable team spy
+#
+# %prefix%: The team spy prefix (team_spy_prefix on config.yml)
+
+team_spy_disabled: "[%prefix%]: &cTeam Spy disabled."

@@ -19,7 +19,7 @@ public class StaffChat extends NovaCommand {
 
         this.setDescription("Toggles staffchat or sends a message to it");
 
-        this.setPermission("privatechats.chat.staffchat");
+        this.setPermission("privatechats.chat.staff");
         this.setFilterAutocomplete(true);
         this.setEmptyTabMode(true);
         this.setAllowedSenders(AllowedSenders.PLAYERS);

@@ -6,6 +6,7 @@ public class ConfigManager {
 
     private static String staffPrefix;
     private static String teamPrefix;
+    private static String teamSpyPrefix;
 
     private static String teamMessagePrefix;
     private static String staffMessagePrefix;
@@ -23,10 +24,15 @@ public class ConfigManager {
     private static String staffMessageSent;
     private static String teamMessageSent;
 
+    private static String teamSpyMessage;
+    private static String teamSpyEnable;
+    private static String teamSpyDisable;
+
     private static final String DEFAULT_STAFF_PREFIX = ChatColor.translateAlternateColorCodes('&', "&d&lSTAFF&r");
     private static final String DEFAULT_TEAM_PREFIX = ChatColor.translateAlternateColorCodes('&', "&6&lTEAM&r");
     private static final String DEFAULT_STAFF_MESSAGE_PREFIX = "s*";
     private static final String DEFAULT_TEAM_MESSAGE_PREFIX = "t*";
+    private static final String DEFAULT_TEAM_SPY_PREFIX = "&e&lTEAM SPY&r";
 
     private static final String DEFAULT_STAFF_ENABLE_MESSAGE = "[%prefix%] &aStaff Chat has been &lEnabled";
     private static final String DEFAULT_STAFF_DISABLE_MESSAGE = "[%prefix%] &cStaff Chat has been &lDisabled";
@@ -40,6 +46,11 @@ public class ConfigManager {
 
     private static final String DEFAULT_STAFF_MESSAGE_SENT = "%prefix%: &6%player%&d -> &r%message%";
     private static final String DEFAULT_TEAM_MESSAGE_SENT = "%prefix%: %teamcolor%%player%&6 -> &r%message%";
+
+    private static final String DEFAULT_TEAM_SPY_MESSAGE = "[%prefix%]: %teamcolor%&l%teamname%&r: %teamcolor%%player%&6 -> &r%message%";
+    private static final String DEFAULT_TEAM_SPY_ENABLE = "[%prefix%]: &aTeam Spy enabled.";
+    private static final String DEFAULT_TEAM_SPY_DISABLE = "[%prefix%]: &cTeam Spy disabled.";
+
 
 
     public static void setStaffPrefix(String s) {
@@ -169,5 +180,45 @@ public class ConfigManager {
         if (staffMessageSent == null || staffMessageSent.equals(""))
             return DEFAULT_STAFF_MESSAGE_SENT;
         return staffMessageSent;
+    }
+
+    public static void setTeamSpyMessage(String teamSpyMessage) {
+        ConfigManager.teamSpyMessage = teamSpyMessage;
+    }
+
+    public static String getTeamSpyMessage() {
+        if (teamSpyMessage == null || teamSpyMessage.equals(""))
+            return DEFAULT_TEAM_SPY_MESSAGE;
+        return teamSpyMessage;
+    }
+
+    public static void setTeamSpyEnable(String teamSpyEnable) {
+        ConfigManager.teamSpyEnable = teamSpyEnable;
+    }
+
+    public static String getTeamSpyEnable() {
+        if (teamSpyEnable == null || teamSpyEnable.equals(""))
+            return DEFAULT_TEAM_SPY_ENABLE;
+        return teamSpyEnable;
+    }
+
+    public static void setTeamSpyDisable(String teamSpyDisable) {
+        ConfigManager.teamSpyDisable = teamSpyDisable;
+    }
+
+    public static String getTeamSpyDisable() {
+        if (teamSpyDisable == null || teamSpyDisable.equals(""))
+            return DEFAULT_TEAM_SPY_DISABLE;
+        return teamSpyDisable;
+    }
+
+    public static void setTeamSpyPrefix(String teamSpyPrefix) {
+        ConfigManager.teamSpyPrefix = teamSpyPrefix;
+    }
+
+    public static String getTeamSpyPrefix() {
+        if (teamSpyPrefix == null || teamSpyPrefix.equals(""))
+            return DEFAULT_TEAM_SPY_PREFIX;
+        return teamSpyPrefix;
     }
 }

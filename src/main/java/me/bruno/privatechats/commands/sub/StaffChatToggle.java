@@ -15,7 +15,7 @@ public class StaffChatToggle extends NovaSubCommand {
 
         this.setDescription("Toggle/Untoggle staff chat");
 
-        this.setPermission("privatechats.chat.staffchat");
+        this.setPermission("privatechats.chat.staff");
         this.setFilterAutocomplete(true);
         this.setEmptyTabMode(true);
         this.setAllowedSenders(AllowedSenders.PLAYERS);

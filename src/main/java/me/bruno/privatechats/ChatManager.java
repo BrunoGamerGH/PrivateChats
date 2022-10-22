@@ -15,6 +15,8 @@ public class ChatManager {
     private static final HashMap<Player, Boolean> teamChatToggled;
     private static final HashMap<Player, Boolean> staffChatToggled;
 
+    private static final HashMap<Player, Boolean> teamSpyEnabled;
+
 
 
 
@@ -24,6 +26,7 @@ public class ChatManager {
         staffChatEnabled = new HashMap<>();
         teamChatToggled = new HashMap<>();
         staffChatToggled = new HashMap<>();
+        teamSpyEnabled = new HashMap<>();
     }
     public static boolean hasTeamChatEnabled(Player player) {
         if (!teamChatEnabled.containsKey(player)) {
@@ -74,7 +77,7 @@ public class ChatManager {
     }
 
     public static void disableStaffChat(Player player) {
-        if (!player.isOp() && !player.hasPermission("privatechats.chat.staffchat"))
+        if (!player.isOp() && !player.hasPermission("privatechats.chat.staff"))
             return;
         staffChatEnabled.putIfAbsent(player, false);
         staffChatEnabled.put(player, false);
@@ -82,7 +85,7 @@ public class ChatManager {
     }
 
     public static void enableStaffChat(Player player) {
-        if (!player.isOp() && !player.hasPermission("privatechats.chat.staffchat"))
+        if (!player.isOp() && !player.hasPermission("privatechats.chat.staff"))
             return;
         staffChatEnabled.putIfAbsent(player, true);
         staffChatEnabled.put(player, true);
@@ -96,20 +99,32 @@ public class ChatManager {
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
             if (TeamManager.getTeamManager().getPlayerTeam(onlinePlayer) != null) {
                 Team team = TeamManager.getTeamManager().getPlayerTeam(onlinePlayer);
-                if (team.getTeamUuid().equals(senderTeam.getTeamUuid())) {
-                    if (ChatManager.hasTeamChatToggled(onlinePlayer)) {
-                        onlinePlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamMessageSent().replace("%prefix%", ConfigManager.getTeamPrefix())
-                                .replace("%teamcolor%", senderTeam.getTeamColor().toString()).replace("%player%", player.getName())
-                                ).replace("%message%", message));
+                if (team != null) {
+                    if (team.getTeamUuid().equals(senderTeam.getTeamUuid())) {
+                        if (ChatManager.hasTeamChatToggled(onlinePlayer)) {
+                            onlinePlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamMessageSent().replace("%prefix%", ConfigManager.getTeamPrefix())
+                                    .replace("%teamcolor%", senderTeam.getTeamColor().toString()).replace("%player%", player.getName())
+                            ).replace("%message%", message));
+                        }
                     }
                 }
             }
+
+            if (teamSpyEnabled.containsKey(onlinePlayer)) {
+                if (teamSpyEnabled.get(onlinePlayer)) {
+                    onlinePlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamSpyMessage().replace("%prefix%", ConfigManager.getTeamSpyPrefix())
+                            .replace("%teamcolor%", senderTeam.getTeamColor().toString()).replace("%teamname%", senderTeam.getDisplayName()).replace("%player%", player.getName())
+                            .replace("%message%", message)));
+                }
+            }
+
+
         });
     }
 
     public static void sendMessageToStaff(Player player, String message) {
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
-            if (onlinePlayer.hasPermission("privatechats.chat.staffchat") || onlinePlayer.isOp()) {
+            if (onlinePlayer.hasPermission("privatechats.chat.staff") || onlinePlayer.isOp()) {
                 if (ChatManager.hasStaffChatToggled(onlinePlayer)) {
                     onlinePlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getStaffMessageSent().replace("%prefix%", ConfigManager.getStaffPrefix())
                             .replace("%player%", player.getName())).replace("%message%", message));
@@ -151,14 +166,14 @@ public class ChatManager {
         staffChatToggled.put(player, b);
     }
     public static void untoggleStaffChat(Player player) {
-        if (!player.isOp() && !player.hasPermission("privatechats.chat.staffchat"))
+        if (!player.isOp() && !player.hasPermission("privatechats.chat.staff"))
             return;
         staffChatToggled.put(player, false);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getStaffUntoggleMessage().replace("%prefix%", ConfigManager.getTeamPrefix())));
     }
 
     public static void toggleStaffChat(Player player) {
-        if (!player.isOp() && !player.hasPermission("privatechats.chat.staffchat"))
+        if (!player.isOp() && !player.hasPermission("privatechats.chat.staff"))
             return;
         staffChatToggled.put(player, true);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getStaffToggleMessage().replace("%prefix%", ConfigManager.getTeamPrefix())));
@@ -166,6 +181,20 @@ public class ChatManager {
 
     public static HashMap<Player, Boolean> getStaffChatToggled() {
         return staffChatToggled;
+    }
+
+    public static void toggleTeamSpy(Player player) {
+        if (!player.isOp() && !player.hasPermission("privatechats.chat.staff"))
+            return;
+        teamSpyEnabled.put(player, true);
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamSpyEnable().replace("%prefix%", ConfigManager.getTeamSpyPrefix())));
+    }
+
+    public static void untoggleTeamSpy(Player player) {
+        if (!player.isOp() && !player.hasPermission("privatechats.chat.staff"))
+            return;
+        teamSpyEnabled.put(player, false);
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamSpyDisable().replace("%prefix%", ConfigManager.getTeamSpyPrefix())));
     }
 
 

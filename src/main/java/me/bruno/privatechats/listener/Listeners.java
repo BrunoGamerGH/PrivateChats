@@ -37,7 +37,7 @@ public class Listeners implements Listener {
 
         }
         if (e.getMessage().startsWith(ConfigManager.getStaffMessagePrefix())) {
-            if (e.getPlayer().isOp() || e.getPlayer().hasPermission("privatechats.chat.staffchat")) {
+            if (e.getPlayer().isOp() || e.getPlayer().hasPermission("privatechats.chat.staff")) {
                 if (!ChatManager.hasStaffChatToggled(e.getPlayer())) {
                     ChatManager.toggleStaffChat(e.getPlayer());
                 }

@@ -26,7 +26,7 @@ public class TeamSpy extends NovaCommand {
 	@Override
 	public boolean execute(CommandSender commandSender, String s, String[] strings) {
 		Player player = (Player) commandSender;
-		if (!player.hasPermission("privatechats.chat.staff") || !player.isOp()) {
+		if (!player.hasPermission("privatechats.chat.staff") && !player.isOp()) {
 			player.sendMessage(ChatColor.RED + "You dont have permission to run this command");
 			return false;
 		} else {

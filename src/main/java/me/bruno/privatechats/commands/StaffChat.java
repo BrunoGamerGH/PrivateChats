@@ -33,7 +33,7 @@ public class StaffChat extends NovaCommand {
 		Player player = (Player) sender;
 
 		// you can delete this if its unnecessary
-		if (!player.hasPermission("privatechats.chat.staffchat") || !player.isOp()) {
+		if (!player.hasPermission("privatechats.chat.staff") || !player.isOp()) {
 			player.sendMessage(ChatColor.RED + "You dont have permission to run this command");
 			return false;
 		}

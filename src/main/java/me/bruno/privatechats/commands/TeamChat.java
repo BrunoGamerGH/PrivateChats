@@ -31,7 +31,7 @@ public class TeamChat extends NovaCommand {
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		Player player = (Player) sender;
 		if (TeamManager.getTeamManager().getPlayerTeam(player) == null) {
-			player.sendMessage("[" + ConfigManager.getTeamPrefix() + ChatColor.RESET + "] " + ChatColor.RED + "You are not in a team.");
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "[" + ConfigManager.getTeamPrefix() + ChatColor.RESET + "] " + ChatColor.RED + "You are not in a team."));
 			return false;
 		}
 		if (args.length == 0) {

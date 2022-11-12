@@ -63,6 +63,9 @@ public class Listeners implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		ChatManager.getStaffChatToggled().putIfAbsent(e.getPlayer(), true);
 		ChatManager.getTeamChatToggled().putIfAbsent(e.getPlayer(), true);
+		if (e.getPlayer().hasPermission("privatechats.chat.staff")) {
+			ChatManager.getTeamSpyEnabled().putIfAbsent(e.getPlayer(), true);
+		}
 	}
 
 }

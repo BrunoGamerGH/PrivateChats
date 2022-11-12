@@ -1,5 +1,6 @@
 package me.bruno.privatechats.commands;
 
+import me.bruno.privatechats.ChatManager;
 import me.bruno.privatechats.PrivateChats;
 import net.zeeraa.novacore.spigot.command.AllowedSenders;
 import net.zeeraa.novacore.spigot.command.NovaCommand;
@@ -28,6 +29,12 @@ public class TeamSpy extends NovaCommand {
 		if (!player.hasPermission("privatechats.chat.staffchat") || !player.isOp()) {
 			player.sendMessage(ChatColor.RED + "You dont have permission to run this command");
 			return false;
+		} else {
+			if (ChatManager.getTeamSpyEnabled().get(player)) {
+				ChatManager.untoggleTeamSpy(player);
+			} else {
+				ChatManager.toggleTeamSpy(player);
+			}
 		}
 
 		return false;

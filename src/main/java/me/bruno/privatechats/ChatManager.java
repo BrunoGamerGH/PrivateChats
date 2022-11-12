@@ -196,4 +196,8 @@ public class ChatManager {
 		player.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getTeamSpyDisable().replace("%prefix%", ConfigManager.getTeamSpyPrefix())));
 	}
 
+	public static HashMap<Player, Boolean> getTeamSpyEnabled() {
+		return teamSpyEnabled;
+	}
+
 }

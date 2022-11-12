@@ -13,55 +13,52 @@ import org.bukkit.entity.Player;
 
 public class TeamChat extends NovaCommand {
 
+	public TeamChat() {
+		super("teamchat", PrivateChats.getInstance());
 
-    public TeamChat() {
-        super("teamchat", PrivateChats.getInstance());
+		this.setAliases(NovaCommand.generateAliasList("tc", "teamc", "tchat"));
 
-        this.setAliases(NovaCommand.generateAliasList("tc", "teamc", "tchat"));
+		this.setDescription("Toggles teamchat or sends a message to it");
 
-        this.setDescription("Toggles teamchat or sends a message to it");
+		this.setFilterAutocomplete(true);
+		this.setEmptyTabMode(true);
+		this.setAllowedSenders(AllowedSenders.PLAYERS);
 
+		this.addSubCommand(new TeamChatToggle());
+	}
 
-        this.setFilterAutocomplete(true);
-        this.setEmptyTabMode(true);
-        this.setAllowedSenders(AllowedSenders.PLAYERS);
+	@Override
+	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
+		Player player = (Player) sender;
+		if (TeamManager.getTeamManager().getPlayerTeam(player) == null) {
+			player.sendMessage("[" + ConfigManager.getTeamPrefix() + ChatColor.RESET + "] " + ChatColor.RED + "You are not in a team.");
+			return false;
+		}
+		if (args.length == 0) {
 
-        this.addSubCommand(new TeamChatToggle());
-    }
+			if (ChatManager.hasTeamChatEnabled(player)) {
+				ChatManager.disableTeamChat(player);
+			} else {
+				ChatManager.enableTeamChat(player);
+				if (ChatManager.hasStaffChatEnabled(player)) {
+					ChatManager.disableStaffChat(player);
+				}
+			}
 
-    @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        Player player = (Player) sender;
-        if (TeamManager.getTeamManager().getPlayerTeam(player) == null) {
-            player.sendMessage("[" + ConfigManager.getTeamPrefix() + ChatColor.RESET + "] " + ChatColor.RED + "You are not in a team.");
-            return false;
-        }
-        if (args.length == 0) {
-
-            if (ChatManager.hasTeamChatEnabled(player)) {
-                ChatManager.disableTeamChat(player);
-            } else {
-                ChatManager.enableTeamChat(player);
-                if (ChatManager.hasStaffChatEnabled(player)) {
-                    ChatManager.disableStaffChat(player);
-                }
-            }
-
-
-            if (!ChatManager.hasTeamChatToggled(player) && ChatManager.hasTeamChatEnabled(player)) {
-                ChatManager.toggleTeamChat(player);
-            }
-        } else {
-            StringBuilder builder = new StringBuilder();
-            for (String arg : args) {
-                if (builder.length() == 0) {
-                    builder.append(arg);
-                } else {
-                    builder.append(" ").append(arg);
-                }
-            }
-            ChatManager.sendMessageToTeam(player, builder.toString());
-        }
-        return true;
-    }
+			if (!ChatManager.hasTeamChatToggled(player) && ChatManager.hasTeamChatEnabled(player)) {
+				ChatManager.toggleTeamChat(player);
+			}
+		} else {
+			StringBuilder builder = new StringBuilder();
+			for (String arg : args) {
+				if (builder.length() == 0) {
+					builder.append(arg);
+				} else {
+					builder.append(" ").append(arg);
+				}
+			}
+			ChatManager.sendMessageToTeam(player, builder.toString());
+		}
+		return true;
+	}
 }

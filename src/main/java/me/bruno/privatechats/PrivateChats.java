@@ -5,61 +5,66 @@ import me.bruno.privatechats.commands.TeamChat;
 import me.bruno.privatechats.commands.TeamSpy;
 import me.bruno.privatechats.listener.Listeners;
 import net.zeeraa.novacore.commons.log.Log;
-import net.zeeraa.novacore.spigot.abstraction.VersionIndependentUtils;
 import net.zeeraa.novacore.spigot.command.CommandRegistry;
+import net.zeeraa.novacore.spigot.permission.PermissionRegistrator;
+
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PrivateChats extends JavaPlugin {
 
-    private static PrivateChats instance;
-    @Override
-    public void onEnable() {
-        saveDefaultConfig();
-        instance = this;
+	private static PrivateChats instance;
 
-        CommandRegistry.registerCommand(new StaffChat());
-        CommandRegistry.registerCommand(new TeamChat());
-        CommandRegistry.registerCommand(new TeamSpy());
-        Bukkit.getPluginManager().registerEvents(new Listeners(), this);
-        ConfigManager.setStaffPrefix(getConfig().getString("staff_prefix"));
-        ConfigManager.setTeamPrefix(getConfig().getString("team_prefix"));
-        ConfigManager.setTeamSpyPrefix(getConfig().getString("team_spy_prefix"));
+	@Override
+	public void onEnable() {
+		saveDefaultConfig();
+		instance = this;
 
-        ConfigManager.setStaffMessagePrefix(getConfig().getString("staff_message_prefix"));
+		PermissionRegistrator.registerPermission("privatechats.chat.staff", "Staff chat", PermissionDefault.OP);
 
-        ConfigManager.setStaffEnableMessage(getConfig().getString("staff_enable"));
-        ConfigManager.setStaffDisableMessage(getConfig().getString("staff_disable"));
-        ConfigManager.setStaffToggleMessage(getConfig().getString("staff_toggle"));
-        ConfigManager.setStaffUntoggleMessage(getConfig().getString("staff_untoggle"));
+		CommandRegistry.registerCommand(new StaffChat());
+		CommandRegistry.registerCommand(new TeamChat());
+		CommandRegistry.registerCommand(new TeamSpy());
+		Bukkit.getPluginManager().registerEvents(new Listeners(), this);
+		ConfigManager.setStaffPrefix(getConfig().getString("staff_prefix"));
+		ConfigManager.setTeamPrefix(getConfig().getString("team_prefix"));
+		ConfigManager.setTeamSpyPrefix(getConfig().getString("team_spy_prefix"));
 
-        ConfigManager.setTeamEnableMessage(getConfig().getString("team_enable"));
-        ConfigManager.setTeamDisableMessage(getConfig().getString("team_disable"));
-        ConfigManager.setTeamToggleMessage(getConfig().getString("team_toggle"));
-        ConfigManager.setTeamUntoggleMessage(getConfig().getString("team_untoggle"));
+		ConfigManager.setStaffMessagePrefix(getConfig().getString("staff_message_prefix"));
 
-        ConfigManager.setStaffMessageSent(getConfig().getString("staff_message"));
-        ConfigManager.setTeamMessageSent(getConfig().getString("team_message"));
+		ConfigManager.setStaffEnableMessage(getConfig().getString("staff_enable"));
+		ConfigManager.setStaffDisableMessage(getConfig().getString("staff_disable"));
+		ConfigManager.setStaffToggleMessage(getConfig().getString("staff_toggle"));
+		ConfigManager.setStaffUntoggleMessage(getConfig().getString("staff_untoggle"));
 
-        ConfigManager.setTeamSpyMessage(getConfig().getString("team_spy_message"));
-        ConfigManager.setTeamSpyEnable(getConfig().getString("team_spy_enable"));
-        ConfigManager.setTeamSpyDisable(getConfig().getString("team_spy_disable"));
+		ConfigManager.setTeamEnableMessage(getConfig().getString("team_enable"));
+		ConfigManager.setTeamDisableMessage(getConfig().getString("team_disable"));
+		ConfigManager.setTeamToggleMessage(getConfig().getString("team_toggle"));
+		ConfigManager.setTeamUntoggleMessage(getConfig().getString("team_untoggle"));
 
-        Log.info("PrivateChats", "PrivateChats has been enabled. Run /staffchat or send a message starting with " + ConfigManager.getStaffMessagePrefix() + " to send a message to all staff.");
+		ConfigManager.setStaffMessageSent(getConfig().getString("staff_message"));
+		ConfigManager.setTeamMessageSent(getConfig().getString("team_message"));
 
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            ChatManager.setStaffChatToggled(player, true);
-            ChatManager.setTeamChatToggled(player, true);
-        });
-    }
-    public static PrivateChats getInstance() {
-        return instance;
-    }
+		ConfigManager.setTeamSpyMessage(getConfig().getString("team_spy_message"));
+		ConfigManager.setTeamSpyEnable(getConfig().getString("team_spy_enable"));
+		ConfigManager.setTeamSpyDisable(getConfig().getString("team_spy_disable"));
 
-    @Override
-    public void onDisable() {
-        Log.info("PrivateChats", "Disabling PrivateChats.");
-    }
+		Log.info("PrivateChats", "PrivateChats has been enabled. Run /staffchat or send a message starting with " + ConfigManager.getStaffMessagePrefix() + " to send a message to all staff.");
+
+		Bukkit.getOnlinePlayers().forEach(player -> {
+			ChatManager.setStaffChatToggled(player, true);
+			ChatManager.setTeamChatToggled(player, true);
+		});
+	}
+
+	public static PrivateChats getInstance() {
+		return instance;
+	}
+
+	@Override
+	public void onDisable() {
+		Log.info("PrivateChats", "Disabling PrivateChats.");
+	}
 
 }

@@ -10,34 +10,34 @@ import org.bukkit.permissions.PermissionDefault;
 
 public class StaffChatToggle extends NovaSubCommand {
 
-    public StaffChatToggle() {
-        super("toggle");
+	public StaffChatToggle() {
+		super("toggle");
 
-        this.setDescription("Toggle/Untoggle staff chat");
+		this.setDescription("Toggle/Untoggle staff chat");
 
-        this.setPermission("privatechats.chat.staff");
-        this.setFilterAutocomplete(true);
-        this.setEmptyTabMode(true);
-        this.setAllowedSenders(AllowedSenders.PLAYERS);
-        this.setPermissionDefaultValue(PermissionDefault.OP);
-    }
+		this.setPermission("privatechats.chat.staff");
+		this.setFilterAutocomplete(true);
+		this.setEmptyTabMode(true);
+		this.setAllowedSenders(AllowedSenders.PLAYERS);
+		this.setPermissionDefaultValue(PermissionDefault.OP);
+	}
 
-    @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        Player player = (Player) sender;
-        // you can delete this if its unnecessary
-        if (!player.hasPermission("privatechats.chat.staffchat") || !player.isOp()) {
-            player.sendMessage(ChatColor.RED + "You dont have permission to run this command");
-            return false;
-        }
-            if (ChatManager.hasStaffChatToggled(player)) {
-                ChatManager.untoggleStaffChat(player);
-                if (ChatManager.hasStaffChatEnabled(player)) {
-                    ChatManager.disableStaffChat(player);
-                }
-            } else {
-              ChatManager.toggleStaffChat(player);
-            }
-        return true;
-    }
+	@Override
+	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
+		Player player = (Player) sender;
+		// you can delete this if its unnecessary
+		if (!player.hasPermission("privatechats.chat.staffchat") || !player.isOp()) {
+			player.sendMessage(ChatColor.RED + "You dont have permission to run this command");
+			return false;
+		}
+		if (ChatManager.hasStaffChatToggled(player)) {
+			ChatManager.untoggleStaffChat(player);
+			if (ChatManager.hasStaffChatEnabled(player)) {
+				ChatManager.disableStaffChat(player);
+			}
+		} else {
+			ChatManager.toggleStaffChat(player);
+		}
+		return true;
+	}
 }

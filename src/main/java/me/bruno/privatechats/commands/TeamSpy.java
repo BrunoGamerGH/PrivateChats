@@ -9,28 +9,27 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 
 public class TeamSpy extends NovaCommand {
-    public TeamSpy() {
-        super("teamspy", PrivateChats.getInstance());
-        setAliases(generateAliasList("ts", "tspy"));
+	public TeamSpy() {
+		super("teamspy", PrivateChats.getInstance());
+		setAliases(generateAliasList("ts", "tspy"));
 
-        this.setDescription("Toggles visibility to TeamSpy");
+		this.setDescription("Toggles visibility to TeamSpy");
 
-        this.setPermission("privatechats.chat.staff");
-        this.setFilterAutocomplete(true);
-        this.setEmptyTabMode(true);
-        this.setAllowedSenders(AllowedSenders.PLAYERS);
-        this.setPermissionDefaultValue(PermissionDefault.OP);
-    }
+		this.setPermission("privatechats.chat.staff");
+		this.setFilterAutocomplete(true);
+		this.setEmptyTabMode(true);
+		this.setAllowedSenders(AllowedSenders.PLAYERS);
+		this.setPermissionDefaultValue(PermissionDefault.OP);
+	}
 
-    @Override
-    public boolean execute(CommandSender commandSender, String s, String[] strings) {
-        Player player = (Player) commandSender;
-        if (!player.hasPermission("privatechats.chat.staffchat") || !player.isOp()) {
-            player.sendMessage(ChatColor.RED + "You dont have permission to run this command");
-            return false;
-        }
+	@Override
+	public boolean execute(CommandSender commandSender, String s, String[] strings) {
+		Player player = (Player) commandSender;
+		if (!player.hasPermission("privatechats.chat.staffchat") || !player.isOp()) {
+			player.sendMessage(ChatColor.RED + "You dont have permission to run this command");
+			return false;
+		}
 
-
-        return false;
-    }
+		return false;
+	}
 }

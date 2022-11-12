@@ -23,8 +23,9 @@ public class Listeners implements Listener {
 						ChatManager.toggleTeamChat(e.getPlayer());
 					}
 					ChatManager.sendMessageToTeam(e.getPlayer(), e.getMessage());
+					e.setCancelled(true);
 				}
-				e.setCancelled(true);
+
 				return;
 			}
 		}

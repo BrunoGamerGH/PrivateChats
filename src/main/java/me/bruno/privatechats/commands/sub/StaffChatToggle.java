@@ -26,7 +26,7 @@ public class StaffChatToggle extends NovaSubCommand {
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		Player player = (Player) sender;
 		// you can delete this if its unnecessary
-		if (!player.hasPermission("privatechats.chat.staffchat") || !player.isOp()) {
+		if (!player.hasPermission("privatechats.chat.staffchat") && !player.isOp()) {
 			player.sendMessage(ChatColor.RED + "You dont have permission to run this command");
 			return false;
 		}

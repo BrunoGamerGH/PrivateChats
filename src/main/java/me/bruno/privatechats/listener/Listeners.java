@@ -13,13 +13,17 @@ public class Listeners implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onChat(AsyncPlayerChatEvent e) {
-
 		if (ChatManager.getTeamChat().containsKey(e.getPlayer())) {
 			if (ChatManager.hasTeamChatEnabled(e.getPlayer())) {
-				if (!ChatManager.hasStaffChatToggled(e.getPlayer())) {
-					ChatManager.toggleTeamChat(e.getPlayer());
+
+				if (TeamManager.getTeamManager().getPlayerTeam(e.getPlayer().getUniqueId()) == null) {
+					ChatManager.disableTeamChat(e.getPlayer());
+				} else {
+					if (!ChatManager.hasStaffChatToggled(e.getPlayer())) {
+						ChatManager.toggleTeamChat(e.getPlayer());
+					}
+					ChatManager.sendMessageToTeam(e.getPlayer(), e.getMessage());
 				}
-				ChatManager.sendMessageToTeam(e.getPlayer(), e.getMessage());
 				e.setCancelled(true);
 				return;
 			}
